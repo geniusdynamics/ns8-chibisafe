@@ -21,11 +21,8 @@ ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/chibisafe-app.pid \
     --cidfile %t/chibisafe-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/chibisafe.pod-id --replace -d --name  chibisafe-app \
-    --volume chibisafe-app:/var/www/html/:Z \
-    --volume ./config:/tmp:Z \
-    --env=NGINX_* \
-    --env 'CONFIG_DATABASE_URI="postgresql://postgres:Nethesis,1234@127.0.0.1:5432/chibisafe"' \
-    ${NGINX_IMAGE}
+    --env-file=%S/state/chibi.env \
+    ${CHIBISAFE_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/chibisafe-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP chibisafe-app
 SyslogIdentifier=%u
