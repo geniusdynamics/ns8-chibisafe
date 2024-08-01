@@ -1,0 +1,33 @@
+#
+# Copyright (C) 2022 Nethesis S.r.l.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+[Unit]
+Description=Podman chibisafe-server.service
+BindsTo=chibisafe.service
+After=chibisafe.service
+
+[Service]
+Environment=PODMAN_SYSTEMD_UNIT=%n
+EnvironmentFile=%S/state/environment
+EnvironmentFile=%S/state/database.env
+# EnvironmentFile=%S/state/secrets/passwords.secret
+Restart=always
+TimeoutStopSec=70
+ExecStartPre=/bin/rm -f %t/chibisafe-server.pid %t/chibisafe-server.ctr-id
+ExecStartPre=/bin/mkdir -p %S/state/restore/
+ExecStart=/usr/bin/podman run --conmon-pidfile %t/chibisafe-server.pid \
+    --cidfile %t/chibisafe-server.ctr-id --cgroups=no-conmon \
+    --pod-id-file %t/chibisafe.pod-id --replace -d --name chibisafe-server \
+    ${CHIBISAFE_SERVER_IMAGE}
+ExecStartPost=/usr/bin/bash -c "while ! podman  exec chibisafe-server psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} ;  do sleep 5 ; done"
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/chibisafe-server.ctr-id -t 10
+ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/chibisafe-server.ctr-id
+ExecReload=/usr/bin/podman kill -s HUP chibisafe-server
+SyslogIdentifier=%u
+PIDFile=%t/chibisafe-server.pid
+Type=forking
+
+[Install]
+WantedBy=default.target
