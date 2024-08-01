@@ -33,6 +33,3 @@ Type=forking
 
 [Install]
 WantedBy=default.target
-# ./database:/app/database:rw
-  #      - ./uploads:/app/uploads:rw
-  #      - ./logs:/app/logs:rw
