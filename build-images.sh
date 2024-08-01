@@ -45,7 +45,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.authorizations=traefik@node:routeadm" \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
-    --label="org.nethserver.images=docker.io/chibisafe/chibisafe:latest docker.io/chibisafe/chibisafe-server:latest" \
+    --label="org.nethserver.images=docker.io/chibisafe/chibisafe:latest docker.io/chibisafe/chibisafe-server:latest docker.io/caddy:2-alpine" \
     "${container}"
 # Commit the image
 buildah commit "${container}" "${repobase}/${reponame}"
