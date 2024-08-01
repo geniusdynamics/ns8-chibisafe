@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-set -e
-
-echo "Dumping chibisafe postgres database"
-podman exec postgresql-app pg_dump -U postgres --format=c  chibisafe > chibisafe.pg_dump
+#set -e
+#
+#echo "Dumping chibisafe postgres database"
+#podman exec postgresql-app pg_dump -U postgres --format=c  chibisafe > chibisafe.pg_dump
