@@ -20,8 +20,10 @@ ExecStartPre=/bin/mkdir -p %S/state/restore/
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/chibisafe-server.pid \
     --cidfile %t/chibisafe-server.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/chibisafe.pod-id --replace -d --name chibisafe-server \
+    --volume=database:/app/database/:Z \
+    --volume=database:/app/uploads/:Z \
+    --volume=database:/app/logs/:Z \
     ${CHIBISAFE_SERVER_IMAGE}
-ExecStartPost=/usr/bin/bash -c "while ! podman  exec chibisafe-server psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} ;  do sleep 5 ; done"
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/chibisafe-server.ctr-id -t 10
 ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/chibisafe-server.ctr-id
 ExecReload=/usr/bin/podman kill -s HUP chibisafe-server
@@ -31,3 +33,6 @@ Type=forking
 
 [Install]
 WantedBy=default.target
+# ./database:/app/database:rw
+  #      - ./uploads:/app/uploads:rw
+  #      - ./logs:/app/logs:rw
