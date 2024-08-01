@@ -1,19 +1,19 @@
 {
   "name": "chibisafe",
   "description": {
-    "en": "My chibisafe module"
+    "en": "chibisafe is a beautiful and performant vault to save all your files in the cloud."
   },
   "categories": [],
   "authors": [
     {
-      "name": "Name Surname",
-      "email": "author@yourmail.org"
+      "name": "Kemboi Elvis",
+      "email": "kemboielvis@genius.ke"
     }
   ],
   "docs": {
-    "documentation_url": "https://docs.chibisafe.com/",
-    "bug_url": "https://github.com/NethServer/dev",
-    "code_url": "https://github.com/author/ns8-chibisafe"
+    "documentation_url": "https://chibisafe.moe/",
+    "bug_url": "https://github.com/geniusdynamics/dev",
+    "code_url": "https://github.com/geniusdynamics/ns8-chibisafe"
   },
-  "source": "ghcr.io/nethserver/chibisafe"
+  "source": "ghcr.io/geniusdynamics/chibisafe"
 }
