@@ -6,7 +6,7 @@
 [Unit]
 Description=Podman  caddy-app.service
 BindsTo=chibisafe.service
-After=chibisafe.service
+After=chibisafe.service chibisafe-server.service chibisafe-app.service caddy-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n

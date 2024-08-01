@@ -10,8 +10,8 @@
 
 [Unit]
 Description=Podman chibisafe.service
-Requires=caddy-app.service chibisafe-server.service chibisafe-app.service
-Before=caddy-app.service chibisafe-server.service chibisafe-app.service
+Requires=chibisafe-server.service chibisafe-app.service caddy-app.service
+Before=chibisafe-server.service chibisafe-app.service caddy-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
