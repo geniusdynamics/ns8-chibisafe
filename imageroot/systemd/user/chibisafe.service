@@ -10,8 +10,8 @@
 
 [Unit]
 Description=Podman chibisafe.service
-Requires=postgresql-app.service chibisafe-app.service
-Before=postgresql-app.service chibisafe-app.service
+Requires=chibisafe-server.service chibisafe-app.service
+Before=chibisafe-server.service chibisafe-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
