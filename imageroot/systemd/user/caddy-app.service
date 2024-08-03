@@ -23,7 +23,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/caddy-app.pid \
     --pod-id-file %t/chibisafe.pod-id --replace -d --name  caddy-app \
     --volume caddy_data:/data/:Z \
     --volume uploads:/app/uploads/:Z \
-    --volume /etc/Caddyfile:/etc/Caddyfile:Z \
+    --volume %S/etc/Caddyfile:%S/etc/Caddyfile:Z \
     --env-file=%S/state/chibi.env \
     ${CADDY_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/caddy-app.ctr-id -t 10
