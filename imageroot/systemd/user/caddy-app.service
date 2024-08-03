@@ -6,7 +6,7 @@
 [Unit]
 Description=Podman  caddy-app.service
 BindsTo=chibisafe.service
-After=chibisafe.service
+After=chibisafe.service chibisafe-server.service chibisafe-app.service caddy-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
@@ -21,8 +21,9 @@ ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/caddy-app.pid \
     --cidfile %t/caddy-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/chibisafe.pod-id --replace -d --name  caddy-app \
-    --volume caddy:/etc/caddy/Caddyfile/:Z \
+    --volume caddy_data:/data/:Z \
     --volume uploads:/app/uploads/:Z \
+    --volume Caddyfile:/etc/caddy/Caddyfile:Z \
     --env-file=%S/state/chibi.env \
     ${CADDY_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/caddy-app.ctr-id -t 10
