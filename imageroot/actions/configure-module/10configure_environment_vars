@@ -17,7 +17,7 @@ data = json.load(sys.stdin)
 HOST = data.get('host')
 chibi = {
     "BASE_API_URL": 'chibisafe-server:8000',
-    "BASE_URL": ":80"
+    "BASE_URL": "https://"+HOST
 }
 agent.write_envfile('chibi.env', chibi)
 #agent.dump_env()
