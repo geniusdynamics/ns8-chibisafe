@@ -16,7 +16,7 @@ ADMIN_PASSWORD = data.get('ADMIN_PASSWORD', "password")
 #This is specific to you module, so you need to change it accordingly.
 HOST = data.get('host')
 chibi = {
-    "BASE_API_URL": f'chibisafe-server:8000',
+    "BASE_API_URL": f'https://server.{HOST}',
     "BASE_URL": "https://"+HOST,
     "ADMIN_PASSWORD": ADMIN_PASSWORD
 }
