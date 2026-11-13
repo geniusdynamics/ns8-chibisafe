@@ -10,18 +10,16 @@ After=chibisafe.service chibisafe-server.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
-EnvironmentFile=%S/state/environment
-EnvironmentFile=-%S/state/smarthost.env
-WorkingDirectory=%S/state
+EnvironmentFile=%E/state/environment
+WorkingDirectory=%E/state
 Restart=always
 TimeoutStopSec=70
 ExecStartPre=/bin/mkdir -p config
 ExecStartPre=/bin/rm -f %t/chibisafe-app.pid %t/chibisafe-app.ctr-id
-ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/chibisafe-app.pid \
     --cidfile %t/chibisafe-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/chibisafe.pod-id --replace -d --name  chibisafe-app \
-    --env-file=%S/state/chibi.env \
+    --env-file=%E/state/chibi.env \
     ${CHIBISAFE_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/chibisafe-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP chibisafe-app
