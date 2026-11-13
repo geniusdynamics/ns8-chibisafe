@@ -9,6 +9,8 @@ BindsTo=chibisafe.service
 After=chibisafe.service chibisafe-server.service
 
 [Service]
+# Next.js listens on $HOSTNAME, by default the pod name, which is not
+# 127.0.0.1 where Caddy connects: HOSTNAME=0.0.0.0 listens on all addresses
 Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=%E/state/environment
 WorkingDirectory=%E/state
@@ -21,6 +23,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/chibisafe-app.pid \
     --cidfile %t/chibisafe-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/chibisafe.pod-id --replace -d --name  chibisafe-app \
     --env-file=%E/state/chibi.env \
+    --env HOSTNAME=0.0.0.0 \
     ${CHIBISAFE_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/chibisafe-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP chibisafe-app
