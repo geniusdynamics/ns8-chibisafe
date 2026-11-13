@@ -50,7 +50,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
     --label="org.nethserver.min-core=3.0.0" \
-    --label="org.nethserver.images=docker.io/chibisafe/chibisafe:v6.7.0 docker.io/chibisafe/chibisafe-server:v6.7.0" \
+    --label="org.nethserver.images=docker.io/chibisafe/chibisafe:v6.7.0 docker.io/chibisafe/chibisafe-server:v6.7.0 docker.io/library/caddy:2.11.9" \
     "${container}"
 # Commit the image
 buildah commit "${container}" "${repobase}/${reponame}"
