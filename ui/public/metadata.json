@@ -1,9 +1,12 @@
 {
   "name": "chibisafe",
   "description": {
-    "en": "chibisafe is a beautiful and performant vault to save all your files in the cloud."
+    "en": "chibisafe is a beautiful and performant vault to save all your files in the cloud.",
+    "it": "Chibisafe è un archivio file self-hosted con caricamento, album, link di condivisione e interfaccia web."
   },
-  "categories": [],
+  "categories": [
+    "storage"
+  ],
   "authors": [
     {
       "name": "Genius Dynamics",
